@@ -1,8 +1,4 @@
-from nlp_engine import Nlp
+from model import Model
 
-words=["hi","hello","nice","good"]
-#print(bag_of_words("hello here nice",words))
-
-n=Nlp(words)
-print(n.bag_of_words("hello here nice"))
-print(n.vocab)
+m=Model()
+m.train_model("intents.json")
