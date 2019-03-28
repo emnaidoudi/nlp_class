@@ -57,7 +57,7 @@ class Nlp:
             for w in self.vocab:
                 vocabualry.extend(self.get_ready_for_bow(w))
             self.vocab=vocabualry  
-
+        
         tokenized_sentence_ready=self.get_ready_for_bow(sentence)
         for w in self.vocab :
             bag.append(tokenized_sentence_ready.count(w)) 

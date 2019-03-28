@@ -87,6 +87,6 @@ class Model():
         model.fit(self.train_x, self.train_y, n_epoch=1000, batch_size=8, show_metric=True)
         model.save('model.tflearn')  
         # save all of our data structures
-        pickle.dump( {'words':self.words, 'classes':self.classes, 'train_x':self.train_x, 'train_y':self.train_y}, open( "training_data", "wb" ) )  
+        pickle.dump( {'words':self.words, 'classes':self.classes, 'train_x':self.train_x, 'train_y':self.train_y}, open( "training_data_%s"%(file.split(".")[0]), "wb" ) )  
 
 
