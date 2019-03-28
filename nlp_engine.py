@@ -12,8 +12,10 @@ takes a sentence(a string) and a Vocabulary(list of word) and return the Bow of 
 """
 
 class Nlp:
+    vacabulary=None
     def __init__(self, vocab=None):
         self.vocab=vocab
+        
 
     def detect_language(self,sentence):
         if(len(sentence)>3):
@@ -50,16 +52,15 @@ class Nlp:
         return tokenized_sentence_ready    
 
     def bag_of_words(self,sentence):
-        bag=[]
-        if(self.vocab==None):
-            self.vocab = sorted(list(set(self.vocab)))
+        bag=list()
+        if(self.vacabulary==None):
             vocabualry=list()
             for w in self.vocab:
                 vocabualry.extend(self.get_ready_for_bow(w))
-            self.vocab=vocabualry  
-        
+            self.vacabulary= sorted(list(set(vocabualry)))    
+       
         tokenized_sentence_ready=self.get_ready_for_bow(sentence)
-        for w in self.vocab :
+        for w in self.vacabulary :
             bag.append(tokenized_sentence_ready.count(w)) 
         
         return bag

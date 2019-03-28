@@ -5,7 +5,11 @@ import pickle
 class Framework():
     words=list()
     classes=list()
+    n=None
     model=None
+    def __init__(self):
+        self.prepare_model("intents.json")
+        n=Nlp(self.words)
 
     def get_data(self,file):
         with open(file) as json_data:
@@ -34,23 +38,16 @@ class Framework():
         self.words=words
         self.classes=classes
         self.model=ann
+        self.model.load('./model.tflearn')
 
     
     def classify(self,sentence): # Sentence = a pattern = what user can say.
         ERROR_THRESHOLD = 0.4
-        self.prepare_model("intents.json")
-        # load our saved model
-        self.model.load('./model.tflearn')
-        n=Nlp(self.words)
         # generate probabilities from the decision tree model
-        results = self.model.predict([n.bag_of_words(sentence)])[0]
-        print("baggg ",n.bag_of_words(sentence))
+        results = self.model.predict([self.n.bag_of_words(sentence)])[0]
         # filter out predictions below a threshold
         results = [[i,r] for i,r in enumerate(results) if r>ERROR_THRESHOLD]
         # sort by strength of probability
         results.sort(key=lambda x: x[1], reverse=True)
-        """return_list = []
-        for r in results:
-            return_list.append((classes[r[0]], r[1]))"""
         # return tuple of intent and probability
         return  self.classes[results[0][0]]
